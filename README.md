@@ -23,11 +23,9 @@ Or
 ```js
 var BulkWritable = require('mongo-bulk-writable');
 var col; // get a collection object from driver
-var writable = new BulkWritable(col.initializeOrderedBulkOp(), function write(chunk, next) {
+var writable = new BulkWritable(col.initializeUnorderedBulkOp(), function write(chunk, next) {
   this.bulk.find( { status: "P" } ).update( { $set: { comment: chunk.comment} } );
   next();
 });
 
 ```
-
-No dependencies required.
