@@ -1,6 +1,6 @@
 {
   "name": "mongo-bulk-writable",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "expose mongodb BulkOp as a writable stream",
   "main": "lib/index.js",
   "scripts": {
