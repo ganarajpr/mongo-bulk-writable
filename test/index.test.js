@@ -20,7 +20,7 @@ module.exports = {
             done();
         });
     },
-    testCase: function(test) {
+    testSimpleCase: function(test) {
         var arr = require('./sample.js');
         var reader = es.readArray(arr), bulk = col.initializeOrderedBulkOp();
         var writable = bulkWritable(bulk, function write(chunk, next) {
@@ -32,6 +32,22 @@ module.exports = {
                 test.equal(res.length, 21);
                 test.done();
             });
+        })
+        writable.on('error', function (err) {
+            console.log(err);
+            test.done(err);
+        });
+        reader.pipe(writable);
+    },
+    testEmptyBulk: function(test) {
+        var arr = require('./sample.js');
+        var reader = es.readArray([]), bulk = col.initializeOrderedBulkOp();
+        var writable = bulkWritable(bulk, function write(chunk, next) {
+            return this.bulk.insert(chunk);
+            next();
+        });
+        writable.on('finish', function () {
+            test.done();
         })
         writable.on('error', function (err) {
             console.log(err);
