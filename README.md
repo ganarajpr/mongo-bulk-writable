@@ -16,6 +16,8 @@ var writable = new BulkWritable(col.initializeOrderedBulkOp(), function write(ch
   this.bulk.insert(chunk);
   next();
 });
+// pipe it
+req.pipe(writable);
 
 ```
 Or
@@ -27,5 +29,7 @@ var writable = new BulkWritable(col.initializeUnorderedBulkOp(), function write(
   this.bulk.find( { status: "P" } ).update( { $set: { comment: chunk.comment} } );
   next();
 });
+// pipe it
+req.pipe(writable);
 
 ```
