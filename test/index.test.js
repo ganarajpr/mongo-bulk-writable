@@ -42,7 +42,8 @@ describe('Simple Case', () => {
                 bulk.insert(chunk);
                 next();
             },
-            collection: col
+            collection: col,
+            highWaterMark: 21
         });
         writable.on('finish', function () {
             col.find({}).toArray(function (err, res) {
@@ -64,7 +65,8 @@ describe('Simple Case', () => {
                 bulk.insert(chunk);
                 next();
             },
-            collection: col
+            collection: col,
+            highWaterMark: 21
         });
         writable.on('error', function (err) {
             done(err);
