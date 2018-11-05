@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha test",
-    "lint": "eslint ./lib",
-    "fix": "eslint --fix ./lib"
+    "lint": "eslint ./lib ./test",
+    "fix": "eslint --fix ./lib ./test"
   },
   "repository": {
     "type": "git",
