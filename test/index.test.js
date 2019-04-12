@@ -1,16 +1,16 @@
 /* jslint node: true, nomen: true, plusplus: true, vars: true, eqeq: true */
 'use strict';
 
-var MongoClient = require('mongodb').MongoClient;
-var es = require('event-stream');
-var MongoBulkWriteStream = require('../lib/index');
-var arr = require('./sample.js');
-var expect = require('chai').expect;
+const MongoClient = require('mongodb').MongoClient;
+const es = require('event-stream');
+const MongoBulkWriteStream = require('../lib/index');
+const arr = require('./sample.js');
+const expect = require('chai').expect;
 
 // Connection URL
-var url = 'mongodb://localhost:27017/ecommerce';
+const url = 'mongodb://localhost:27017/ecommerce';
 
-var db, col;
+let db, col;
 describe('Simple Case', () => {
   beforeEach((done) => {
     MongoClient.connect(url)
@@ -35,8 +35,8 @@ describe('Simple Case', () => {
     }
   });
   it('should insert 21 records with pipe', (done) => {
-    var reader = es.readArray(arr);
-    var writable = new MongoBulkWriteStream({
+    const reader = es.readArray(arr);
+    const writable = new MongoBulkWriteStream({
       callback: function write (bulk, chunk, next) {
         bulk.insert(chunk);
         next();
@@ -61,7 +61,7 @@ describe('Simple Case', () => {
   });
 
   it('should insert 21 records with write', (done) => {
-    var writable = new MongoBulkWriteStream({
+    const writable = new MongoBulkWriteStream({
       callback: function write (bulk, chunk, next) {
         bulk.insert(chunk);
         next();
@@ -88,8 +88,8 @@ describe('Simple Case', () => {
   });
 
   it('should insert empty records without issue', (done) => {
-    var reader = es.readArray([]);
-    var writable = new MongoBulkWriteStream({
+    const reader = es.readArray([]);
+    const writable = new MongoBulkWriteStream({
       callback: function write (bulk, chunk, next) {
         bulk.insert(chunk);
         next();
